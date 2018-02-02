@@ -7,6 +7,8 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="graph.js"></script>
+    
 <style>
 body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 .w3-bar,h1,button {font-family: "Montserrat", sans-serif}
@@ -15,7 +17,7 @@ img {
     display: block;
     margin-left: auto;
     margin-right: auto;
-    width: 40%;
+    /*width: 40%;*/
 }
 </style>
 <body>
@@ -24,19 +26,21 @@ img {
 <div class="w3-top">
   <div class="w3-bar w3-red w3-card w3-left-align w3-large">
     <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-red" href="javascript:void(0);" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
-    <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Home</a>
     <a href="#" class="w3-bar-item w3-button w3-padding-large w3-white">My Profile</a>
-    <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Link 2</a>
-    <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Link 3</a>
-    <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Link 4</a>
+    <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Courses & Grades</a>
+    <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Notes</a>
+    <a href="#" style="float: right;" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Settings</a>
+    <!--<a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Link 3</a>
+    <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Link 4</a>-->
+      
   </div>
 
   <!-- Navbar on small screens -->
   <div id="navDemo" class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium w3-large">
-    <a href="#" class="w3-bar-item w3-button w3-padding-large">Link 1</a>
-    <a href="#" class="w3-bar-item w3-button w3-padding-large">Link 2</a>
-    <a href="#" class="w3-bar-item w3-button w3-padding-large">Link 3</a>
-    <a href="#" class="w3-bar-item w3-button w3-padding-large">Link 4</a>
+    <a href="#" class="w3-bar-item w3-button w3-padding-large">My Profile</a>
+    <a href="#" class="w3-bar-item w3-button w3-padding-large">Courses & Grades</a>
+    <a href="#" class="w3-bar-item w3-button w3-padding-large">Notes</a>
+    <!--<a href="#" class="w3-bar-item w3-button w3-padding-large">Link 4</a>-->
   </div>
 </div>
 
@@ -49,11 +53,34 @@ img {
 <!-- First Grid -->
 <div class="w3-row-padding w3-padding-64 w3-container">
   <div class="w3-content">
-    <img src="https://i.redditmedia.com/pI2RVSXT-tIkQBHi1TmMm9wzQQg-WVV8coZY1FYHe7s.jpg?w=576&s=d18ee3c335a929456ac14192cb730f71" align="middle"/>
+    <img src="https://i.redditmedia.com/pI2RVSXT-tIkQBHi1TmMm9wzQQg-WVV8coZY1FYHe7s.jpg?w=576&s=d18ee3c335a929456ac14192cb730f71"
+     height="250" width="200" align="middle"/>
   </div>
 </div>
+    
+    <h1>Summary</h1>
+    <p>GPA:</p>
+    <p>Academic Standing:</p>
 
-
+    <h1>Performance</h1>
+    <canvas id="myCanvas" width="400" height="400"
+            style="border:1px solid #000000;">
+    Your browswer does not support canvas
+    </canvas>
+<!--Draw Graph on Canvas-->
+    <script>
+var canvas = document.getElementById("myCanvas");
+var ctx = canvas.getContext("2d");
+ctx.fillStyle = "#FF0000";
+        ctx.moveTo(0, 400);
+        ctx.lineTo(200, 200);
+        ctx.moveTo(200, 200);
+        ctx.lineTo(400, 200);
+        ctx.stroke();
+</script>
+    
+    
+    
 <div class="w3-container w3-black w3-center w3-opacity w3-padding-64">
     <h1 class="w3-margin w3-xlarge">Quote of the day: Could a coder code if a coder could code code?</h1>
 </div>
@@ -80,7 +107,5 @@ function myFunction() {
         x.className = x.className.replace(" w3-show", "");
     }
 }
-</script>
-
 </body>
 </html>
