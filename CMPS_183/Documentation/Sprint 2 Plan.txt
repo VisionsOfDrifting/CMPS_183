@@ -1,0 +1,38 @@
+﻿Sprint 2 Plan
+Slug Grades
+MMnMM
+Sprint completion date: 2/17/2018
+Revision number and revision date.
+
+
+Goal:
+        During this sprint we want to find a way to parse through HTML transcripts and display that information in the form of graphs on the user’s profile page.
+
+
+Task listing, organized by user story: 
+
+
+1. As a user, I want the data from my transcript to be parsed so that I can graph results.
+   1. Find a way to parse through HTML transcripts (?)
+   2. Store the information from the transcript in the database(?)
+   3.                 Total for user story 1 = ? hours
+1. As a user, I want to see a variety of graphs so that I can track my progress and the progress of my organization as a whole.
+   1. Add a canvas element to user profile page(1)
+   2. Display gpa values and average gpa(?)
+   3. Display distribution of group grades(?)
+   4. Test (1)
+        Total for user story 2 = ? hours
+
+
+Initial Task Assignment:
+Matthew Frank (I, B)
+Mikhail Lychagin(II, B)
+Miriam Del Cerro(I, C)
+Nick Pappas(II, A)
+Madeline Conner(I, A)
+
+
+Weekly Scrum Meetings:
+Monday 9:10am
+Tuesday 3:30pm
+Thursday 3:30pm
