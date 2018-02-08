@@ -56,7 +56,7 @@
 
       <!-- Header -->
       <header class="w3-container w3-yellow w3-center" style="padding:60px 16px">
-        <h1>Summary</h1>
+        <h1>Academic Summary</h1>
         <p>GPA:</p>
         <p>Academic Standing:</p> 
       </header>
@@ -64,10 +64,14 @@
       <section class="w3-container w3-white w3-padding-64 w3-center">
 
         <h1>Performance</h1>
-        <canvas id="myCanvas" width="440" height="400"
-                style="border:1px solid #000000;">
+        <canvas id="myCanvas" width="320" height="280"
+                style="border:3px solid #000000;">
         Your browswer does not support canvas
         </canvas>
+        <p>X-axis: quarters</p>
+        <p>Y-axis: GPA</p>
+        <p>Green Line: Average GPA</p>
+          
           <!--Draw Graph on Canvas-->
           <script>
             var i;
@@ -96,36 +100,41 @@
             ctx.strokeStyle = "#000000";
             for(i=1; i<gpa.length; i++)
             {
-                    ctx.moveTo(x, 100*(max-y));
+                    ctx.moveTo(x, 280-(70*y));
                     y = gpa[i];
-                    x += 40;
-                    ctx.lineTo(x, 100*(max-y));
+                    x += 29;
+                    ctx.lineTo(x, 280-(70*y));
                     sum += gpa[i];
             }
             ctx.stroke();
 
             var averagegpa = sum/gpa.length;
 
-            //axis labels
+            /*//axis labels
             ctx.font = '20pt Lato';
-            ctx.fillText('Quarter', 160, 396);
+            ctx.fillText('Quarter', 160, 270);
             ctx.rotate(-Math.PI*2);
             ctx.fillText('GPA', 2, 200);
-            //ctx.rotate(-Math.PI*2/(i*6));
+            //ctx.rotate(-Math.PI*2/(i*6));*/
 
             //average gpa line
             ctx.beginPath();
             ctx.strokeStyle = "#33cc33";
-            ctx.moveTo(0, 100*(max-averagegpa));
-            ctx.lineTo(440, 100*(max-averagegpa));
+            ctx.moveTo(0, 280-(70*averagegpa));
+            ctx.lineTo(440, 280-(70*averagegpa));
             ctx.stroke();
-
-            //minimum gpa line
+              
+            //quarter tick marks
             ctx.beginPath();
-            ctx.strokeStyle = "#FF0000";
-            ctx.moveTo(0, 200);
-            ctx.lineTo(440, 200);
-            ctx.stroke();
+            ctx.strokeStyle = "black";
+            var next = 0;
+            for(i=0; i<12; i++)
+            {
+                ctx.moveTo(next, 280);
+                ctx.lineTo(next, 275);
+                next+=29;
+                ctx.stroke();
+            }
           </script>
 
        </section>
