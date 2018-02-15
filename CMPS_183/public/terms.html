@@ -1,64 +1,60 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <link rel="icon" href="https://firebasestorage.googleapis.com/v0/b/sluggrades-56116.appspot.com/o/slugdino.png?alt=media&token=5a6850c2-8e82-49e1-9bac-2b2476c3ba94">
-        <title>Slug Grades</title>
-
-        <!-- update the version number as needed -->
-        <script defer src="/__/firebase/4.9.1/firebase-app.js"></script>
-        <!-- include only the Firebase features as you need -->
-        <script defer src="/__/firebase/4.9.1/firebase-auth.js"></script>
-        <script defer src="/__/firebase/4.9.1/firebase-database.js"></script>
-        <script defer src="/__/firebase/4.9.1/firebase-messaging.js"></script>
-        <script defer src="/__/firebase/4.9.1/firebase-storage.js"></script>
-        <!-- initialize the SDK after all desired features are loaded -->
-        <script defer src="/__/firebase/init.js"></script>
-
-        <style>
-          body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
-          .w3-bar,h1,button {font-family: "Montserrat", sans-serif}
-        </style>
-    </head>
-    
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="icon" href="https://firebasestorage.googleapis.com/v0/b/sluggrades-56116.appspot.com/o/slugdino.png?alt=media&token=5a6850c2-8e82-49e1-9bac-2b2476c3ba94">
+    <title>Slug Grades</title>
+    <!-- update the version number as needed -->
+    <script defer src="/__/firebase/4.9.1/firebase-app.js"></script>
+    <!-- include only the Firebase features as you need -->
+    <script defer src="/__/firebase/4.9.1/firebase-auth.js"></script>
+    <script defer src="/__/firebase/4.9.1/firebase-database.js"></script>
+    <script defer src="/__/firebase/4.9.1/firebase-messaging.js"></script>
+    <script defer src="/__/firebase/4.9.1/firebase-storage.js"></script>
+    <!-- initialize the SDK after all desired features are loaded -->
+    <script defer src="/__/firebase/init.js"></script>
+    <style>
+      body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
+      .w3-bar,h1,button {font-family: "Montserrat", sans-serif}
+      .fa-graduation-cap,.fa-bar-chart, .fa-file-text, .fa-users {font-size:200px}
+    </style>
+    <!-- This link is at the top now! Its better style to leave it in the head -->
+    <script src="https://www.gstatic.com/firebasejs/4.9.1/firebase.js"></script>
+  </head>
   <body>
-      <!-- Navbar -->
-      <div class="w3-top">
-          <div class="w3-bar w3-red w3-large">
-              <div class="w3-left-align w3-card">
-                <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-red" href="javascript:void(0);" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
-                <a href="homepage.html" class="w3-bar-item w3-button w3-padding-large w3-white">Home</a>
-                <a href="profile.html" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">My Profile</a>
-                <a href="courses.html" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Courses & Grades</a>
-                <a href="notes.html" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Notes</a>
-                <button onclick="logout();" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Logout</button>
-              </div>
-              <div class="w3-right-align">
-                  <span class="w3-hide-small w3-padding-large w3-right-align" id="clientName" style="visibility:hidden"></span>
-                 <img id="clientPhoto" src="" style="width:40px; height:40px; border-radius:50%; margin:5px; border:solid white; visibility:hidden">
-              </div>
+    <!-- Navbar -->
+    <div class="w3-top">
+      <div class="w3-bar w3-red w3-large">
+          <div class="w3-left-align w3-card">
+            <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-red" href="javascript:void(0);" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
+            <a href="homepage.html" class="w3-bar-item w3-button w3-padding-large w3-white">Home</a>
+            <a href="profile.html" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">My Profile</a>
+            <a href="courses.html" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Courses & Grades</a>
+            <a href="notes.html" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Notes</a>
+            <button onclick="logout();" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Logout</button>
           </div>
-
-          <!-- Navbar on small screens -->
-          <div id="navDemo" class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium w3-large">
-            <a href="homepage.html" class="w3-bar-item w3-button w3-padding-large">Home</a>
-            <a href="profile.html" class="w3-bar-item w3-button w3-padding-large">My Profile</a>
-            <a href="courses.html" class="w3-bar-item w3-button w3-padding-large">Courses & Grades</a>
-            <a href="notes.html" class="w3-bar-item w3-button w3-padding-large">Notes</a>
-            <button onclick="logout();" class="w3-bar-item w3-button w3-padding-large">Logout</button>
+          <div class="w3-right-align">
+<!-- This is associated with firebaseConfig.js onAuthStateChanged() 
+            <span class="w3-hide-small w3-padding-large w3-right-align" id="clientName" style="visibility:hidden"></span>
+            <img id="clientPhoto" src="" style="width:40px; height:40px; border-radius:50%; margin:5px; border:solid white; visibility:hidden">
+-->
           </div>
+        </div>
+        <!-- Navbar on small screens -->
+        <div id="navDemo" class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium w3-large">
+          <a href="homepage.html" class="w3-bar-item w3-button w3-padding-large">Home</a>
+          <a href="profile.html" class="w3-bar-item w3-button w3-padding-large">My Profile</a>
+          <a href="courses.html" class="w3-bar-item w3-button w3-padding-large">Courses & Grades</a>
+          <a href="notes.html" class="w3-bar-item w3-button w3-padding-large">Notes</a>
+          <button onclick="logout();" class="w3-bar-item w3-button w3-padding-large">Logout</button>
+        </div>
       </div>
-
       <!-- Header -->
-<header class="w3-container w3-yellow w3-center" style="padding:128px 16px">
-  <h1 class="w3-margin w3-jumbo">SLUG GRADES</h1>
-  <p class="w3-xlarge">Terms and Conditions ("Terms")</p>
-</header>  
     
 <!-- First Grid -->
 <div class="w3-row-padding w3-padding-64 w3-container">
@@ -120,40 +116,38 @@ Failure to do so may result in the termination of your account.</p>
   </div>
 </div>
 
+    <div class="w3-container w3-black w3-center w3-opacity w3-padding-64">
+        <h1 class="w3-margin w3-xlarge">Quote of the day: Expect problems and eat them for breakfast.</h1>
+    </div>
 
-<div class="w3-container w3-black w3-center w3-opacity w3-padding-64">
-    <h1 class="w3-margin w3-xlarge">Quote of the day: Expect problems and eat them for breakfast.</h1>
-</div>
-
-<!-- Footer -->
-<footer class="w3-container w3-padding-64 w3-center w3-opacity">  
-  <div class="w3-xlarge w3-padding-32">
-    <i class="fa fa-facebook-official w3-hover-opacity"></i>
-    <i class="fa fa-instagram w3-hover-opacity"></i>
-    <i class="fa fa-snapchat w3-hover-opacity"></i>
-    <i class="fa fa-pinterest-p w3-hover-opacity"></i>
-    <i class="fa fa-twitter w3-hover-opacity"></i>
-    <i class="fa fa-linkedin w3-hover-opacity"></i>
- </div>
-</footer>
-
-<script>
-// Used to toggle the menu on small screens when clicking on the menu button
-function myFunction() {
-    var x = document.getElementById("navDemo");
-    if (x.className.indexOf("w3-show") == -1) {
-        x.className += " w3-show";
-    } else { 
-        x.className = x.className.replace(" w3-show", "");
-    }
-}
-</script>
+    <!-- Footer -->
+    <footer class="w3-container w3-padding-64 w3-center w3-opacity">  
+      <div class="w3-xlarge w3-padding-32">
+        <i class="fa fa-facebook-official w3-hover-opacity"></i>
+        <i class="fa fa-instagram w3-hover-opacity"></i>
+        <i class="fa fa-snapchat w3-hover-opacity"></i>
+        <i class="fa fa-pinterest-p w3-hover-opacity"></i>
+        <i class="fa fa-twitter w3-hover-opacity"></i>
+        <i class="fa fa-linkedin w3-hover-opacity"></i>
+     </div>
+    </footer>
       
+    <script>
+        // Used to toggle the menu on small screens when clicking on the menu button
+        function myFunction() {
+            var x = document.getElementById("navDemo");
+            if (x.className.indexOf("w3-show") == -1) {
+                x.className += " w3-show";
+            } else { 
+                x.className = x.className.replace(" w3-show", "");
+            }
+        }
+    </script>
   </body>
     
     
-<script src="https://www.gstatic.com/firebasejs/4.9.1/firebase.js"></script>
-<script>
+  <script src="scripts/firebaseConfig.js"></script>
+<!--<script>
   // Initialize Firebase
   var config = {
     apiKey: "AIzaSyA8rONNbHblA79IzG-gPhcuKmGuTfsdYA8",
@@ -200,5 +194,5 @@ function myFunction() {
     
     window.onload = login;
     
-    </script>
+    </script>-->
 </html>
