@@ -19,8 +19,8 @@
         <script defer src="/__/firebase/4.9.1/firebase-storage.js"></script>
         <!-- initialize the SDK after all desired features are loaded -->
         <script defer src="/__/firebase/init.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/4.9.1/firebase.js"></script>
-        <script src="scripts/plotly-latest.min.js"> //this is what gets the graph lib</script>
+        <!--<script src="https://www.gstatic.com/firebasejs/4.9.1/firebase.js"></script>
+        <script src="scripts/plotly-latest.min.js"> //this is what gets the graph lib</script>-->
 
         <style>
           body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
@@ -34,10 +34,10 @@
           <div class="w3-bar w3-red w3-large">
               <div class="w3-left-align w3-card">
                 <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-red" href="javascript:void(0);" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
-                <a href="homepage.html" class="w3-bar-item w3-button w3-padding-large w3-white">Home</a>
+                <a href="homepage.html" class="w3-bar-item w3-button w3-padding-large w3-hover-white">Home</a>
                 <a href="profile.html" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">My Profile</a>
                 <a href="courses.html" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Courses & Grades</a>
-                <a href="notes.html" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Notes</a>
+                <a href="notes.html" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white w3-white">Notes</a>
                 <button onclick="logout();" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Logout</button>
               </div>
               <div class="w3-right-align">
@@ -58,9 +58,80 @@
 
       <!-- Header -->
       <header class="w3-container w3-yellow w3-center" style="padding:60px 16px">
-        <h1>Courses</h1> 
+        <h1>Quarter Summary</h1>
       </header>
       
+      <div class="w3-container w3-white" style="padding:60px 16px">
+          
+          <!--Spring 2017-->
+          <h2 style="padding-left:150px;">Spring 2017:</h2>
+      <table style="padding-left:150px;">
+            <th>Course Title</th>
+            <th>Course#</th>
+            <th>Department</th>
+            <th>Grade</th>
+            <tr>
+            <td>Probability/Stats</td>
+            <td>107</td>
+            <td>CMPE</td>
+            <td>A</td>
+            </tr>
+            <tr>
+            <td>Algorithm Analysis</td>
+            <td>102</td>
+            <td>CMPE</td>
+            <td>B+</td>
+            </tr>
+            <tr>
+            <td>Computation Model</td>
+            <td>130</td>
+            <td>CMPS</td>
+            <td>A</td>
+            </tr>
+        </table>
+          <br>
+          <!--Summer 2017-->
+          <h2 style="padding-left:150px;">Summer 2017:</h2>
+      <table style="padding-left:150px;">
+            <th>Course Title</th>
+            <th>Course#</th>
+            <th>Department</th>
+            <th>Grade</th>
+            <tr>
+            <td>Software Eng</td>
+            <td>115</td>
+            <td>CMPS</td>
+            <td>A-</td>
+            </tr>
+        </table>
+      <br>
+      <!--Fall 2017-->
+          <h2 style="padding-left:150px;">Fall 2017:</h2>
+      <table style="padding-left:150px;">
+            <th>Course Title</th>
+            <th>Course#</th>
+            <th>Department</th>
+            <th>Grade</th>
+            <tr>
+            <td>Computer Architecture</td>
+            <td>110</td>
+            <td>CMPE</td>
+            <td>A-</td>
+            </tr>
+            <tr>
+            <td>Compiler Design</td>
+            <td>104</td>
+            <td>CMPS</td>
+            <td>B+</td>
+            </tr>
+            <tr>
+            <td>Comparative Prog Lang</td>
+            <td>112</td>
+            <td>CMPS</td>
+            <td>W</td>
+            </tr>
+        </table>
+      </div>
     <div class="w3-container w3-black w3-center w3-opacity w3-padding-64">
         <h1 class="w3-margin w3-xlarge">Quote of the day: Expect problems and eat them for breakfast.</h1>
     </div>
