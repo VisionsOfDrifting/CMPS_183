@@ -20,7 +20,9 @@
         <!-- initialize the SDK after all desired features are loaded -->
         <script defer src="/__/firebase/init.js"></script>
         <script src="https://www.gstatic.com/firebasejs/4.9.1/firebase.js"></script>
-        <script src="scripts/plotly-latest.min.js"> //this is what gets the graph lib</script>
+        
+        <!-- load the graph script -->
+        <script src="scripts/plotly-latest.min.js"></script>
 
         <style>
           body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
@@ -29,177 +31,29 @@
     </head>
     
   <body>
-      <!-- Navbar -->
-      <div class="w3-top">
-          <div class="w3-bar w3-red w3-large">
-              <div class="w3-left-align w3-card">
-                <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-red" href="javascript:void(0);" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
-                <a href="homepage.html" class="w3-bar-item w3-button w3-padding-large w3-white">Home</a>
-                <a href="profile.html" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">My Profile</a>
-                <a href="courses.html" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Courses & Grades</a>
-                <a href="notes.html" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Notes</a>
-                <button onclick="logout();" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Logout</button>
-              </div>
-              <div class="w3-right-align">
-                  <span class="w3-hide-small w3-padding-large w3-right-align" id="clientName" style="visibility:hidden"></span>
-                 <img id="clientPhoto" src="" style="width:40px; height:40px; border-radius:50%; margin:5px; border:solid white; visibility:hidden">
-              </div>
-          </div>
-
-          <!-- Navbar on small screens -->
-          <div id="navDemo" class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium w3-large">
-            <a href="homepage.html" class="w3-bar-item w3-button w3-padding-large">Home</a>
-            <a href="profile.html" class="w3-bar-item w3-button w3-padding-large">My Profile</a>
-            <a href="courses.html" class="w3-bar-item w3-button w3-padding-large">Courses & Grades</a>
-            <a href="notes.html" class="w3-bar-item w3-button w3-padding-large">Notes</a>
-            <button onclick="logout();" class="w3-bar-item w3-button w3-padding-large">Logout</button>
-          </div>
-      </div>
+      <!-- Navbar Location -->
+      <div class="w3-top" id="navbar"></div>
 
       <!-- Header -->
-      <header class="w3-container w3-yellow w3-center" style="padding:60px 16px" onload = "Hello()">
+      <header class="w3-container w3-yellow w3-center" style="padding:60px 16px">
         <h1>Academic Summary</h1>
         <p>GPA: 2.4</p>
         <p>Academic Standing: Good Standing</p> 
       </header>
      
        <section class="w3-container w3-white w3-padding-64 w3-center">
-         <h1>Performance</h1>
-           <br>
-           <div id="graph"><!-- Plotly chart will be drawn inside this DIV --></div>
-           <!-- Should really throw this all in a .js file and put it in the scripts folder -->
-           <script>
-            var i;
-            var max = 4.0;
-            var gpa = [12]; //12 quarters of grades
-            gpa[0] = 3.2;
-            gpa[1] = 3.7;
-            gpa[2] = 2.7;
-            gpa[3] = 3.2;
-            gpa[4] = 3.8;
-            gpa[5] = 3.9;
-            gpa[6] = 3.2;
-            gpa[7] = 2.0;
-            gpa[8] = 1.0;
-            gpa[9] = 1.5;
-            gpa[10] = 2.4;
-            gpa[11] = 2.4;
-            
-            //This is ploty.js, you have to give it arrays.
-            var trace1 = {
-              x: [1,2,3,4,5,6,7,8,9,10,11,12], 
-              y: gpa, 
-              mode: 'lines+markers', 
-              name: 'spline',  
-              text: ['Q1 Fall', 'Q2 Winter', 'Q3 Spring', 'Q4 Summer', 
-                     'Q5 Fall', 'Q6 Winter', 'Q7 Spring', 'Q8 Summer', 
-                     'Q9 Fall', 'Q10 Winter', 'Q11 Spring', 'Q12 Summer'],
-              line: {shape: 'spline'}, 
-              type: 'scatter'
-            };
-            var data = [trace1];
-            var layout = {
-                 xaxis: {
-                 title: 'Quarters'
-               },
-               yaxis: {
-                 title: 'GPA'
-               },
-               legend: {
-                 y: 0.5, 
-                 traceorder: 'reversed', 
-                 font: {size: 16}, 
-                 yref: 'paper'
-               }
-            };
-            Plotly.newPlot('graph', data, layout);
-          </script>
+           <h1>Performance</h1>
+           
+           <!-- Graph Location -->
+           <div id="graph"></div>
       </section>
       
-    <div class="w3-container w3-black w3-center w3-opacity w3-padding-64">
-        <h1 class="w3-margin w3-xlarge">Quote of the day: Expect problems and eat them for breakfast.</h1>
-    </div>
-
-    <!-- Footer -->
-    <footer class="w3-container w3-padding-64 w3-center w3-opacity">  
-      <div class="w3-xlarge w3-padding-32">
-        <i class="fa fa-facebook-official w3-hover-opacity"></i>
-        <i class="fa fa-instagram w3-hover-opacity"></i>
-        <i class="fa fa-snapchat w3-hover-opacity"></i>
-        <i class="fa fa-pinterest-p w3-hover-opacity"></i>
-        <i class="fa fa-twitter w3-hover-opacity"></i>
-        <i class="fa fa-linkedin w3-hover-opacity"></i>
-     </div>
-    </footer>
-      
-    <script>
-        // Used to toggle the menu on small screens when clicking on the menu button
-        function myFunction() {
-            var x = document.getElementById("navDemo");
-            if (x.className.indexOf("w3-show") == -1) {
-                x.className += " w3-show";
-            } else { 
-                x.className = x.className.replace(" w3-show", "");
-            }
-        }
-    </script>
-      
+      <!-- Footer Location -->
+      <div id="footer-container"></div>
   </body>
     
     
-<script src="https://www.gstatic.com/firebasejs/4.9.1/firebase.js"></script>
-<script>
-  // Initialize Firebase
-  var config = {
-    apiKey: "AIzaSyA8rONNbHblA79IzG-gPhcuKmGuTfsdYA8",
-    authDomain: "sluggrades-56116.firebaseapp.com",
-    databaseURL: "https://sluggrades-56116.firebaseio.com",
-    projectId: "sluggrades-56116",
-    storageBucket: "sluggrades-56116.appspot.com",
-    messagingSenderId: "575858364394"
-  };
-  firebase.initializeApp(config);
-
-    function login() {
-        function newLoginHappened(user) {
-            if (user) {
-                // user is signed in
-                app(user);
-            } else {
-                window.location = 'index.html';
-            }
-        }
-        
-        firebase.auth().onAuthStateChanged(newLoginHappened);
-    }
-    
-    function logout() {
-        document.getElementById("clientName").style.visibility = "hidden";
-        document.getElementById("clientPhoto").style.visibility = "hidden";
-        firebase.auth().signOut();
-        
-    }
-    
-    function app(user) {
-        // user.displayName
-        // user.email
-        // user.photoURL
-        // user.uid
-        
-        document.getElementById("clientName").innerHTML = user.displayName;
-        document.getElementById("clientPhoto").setAttribute("src", user.photoURL);
-        document.getElementById("clientName").style.visibility = "visible";
-        document.getElementById("clientPhoto").style.visibility = "visible";
-        
-    }
-    
-    window.onload = login;
-    
-    
-    var database = firebase.database();
-    function Hello(){
-        console.log("HERE");
-    }
-    
-    </script>
+    <script src="scripts/signed-in-header.js"></script>
+    <script src="scripts/footer.js"></script>
+    <script src="scripts/gpa-graph.js"></script>
 </html>
