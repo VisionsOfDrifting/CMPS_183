@@ -1,0 +1,142 @@
+<!DOCTYPE HTML>
+<html>
+
+<body>
+	
+	<input type="file" name="file" id="file">
+	
+	
+  <p>Before the script...</p>
+
+  <script>
+    document.getElementById('file').onchange = function(){
+		var file = this.files[0];
+
+		var reader = new FileReader();
+		reader.readAsText(file);
+		reader.onload = function(e){
+			var marker = 0;
+			var startRead = 0;
+			var startSemester = 0;
+	
+			var semester = "";
+			var subject = "";
+			var number = "";
+			var name = "";
+			var grade = "";
+	
+			var count = 0;
+			var toCount = 0;
+	
+			var stopCondition = 0;
+	
+			var beginUndergrad = 0;
+			
+			var lines = this.result.split('\n');
+			for(var line = 0; line < lines.length; line++){
+				//console.log(lines[line]);
+				var toCount = 0;
+				var inputLine = lines[line].toString();
+				
+				if (inputLine.indexOf("Quarter") > 0) {
+					//echo $line;
+					count = 0;
+					semester = inputLine.substring(65);
+					semester = semester.substring(0, semester.indexOf('<'));
+					//echo $semester;
+					console.log(semester);
+					startRead = 1;
+					stopCondition = 0;
+				}
+				if(inputLine.indexOf('Academic Standing Effective') > -1){
+					startSemester = 0;
+				}
+				if(inputLine.indexOf('<tr class="c28">') == 0 || inputLine.indexOf('<tr class="c26">') == 0){
+					marker = 1;
+				}
+				if(inputLine.indexOf('</tr>') == 0 && startSemester == 1) {
+					marker = 0;
+				}
+				if(inputLine.indexOf('Term Honor:') > 1){
+					startSemester = 0;
+				}
+				if(inputLine.indexOf('Term GPA') > 1){
+					startSemester = 0;
+				}
+				//console.log("////////////" + inputLine);
+				//console.log("////////////" + "Line: " + (line - 1) + ", Marker: " + marker + ", StartRead: " + startRead + ", StartSemester: " + startSemester + ", stopCondition: " + stopCondition);
+				if(marker == 1 && startRead == 1 && startSemester == 1 && stopCondition == 0){
+					//echo $count;
+					//echo $line;
+					//console.log("Line:" + (line - 1) + "    " + "Count: " + count);
+					//console.log(count);
+					//console.log(inputLine);
+					if(inputLine.indexOf("Repeated:") > -1){
+						count--;
+						toCount = 1;
+					} else if(inputLine.indexOf("Repeated") > -1 || inputLine.indexOf("Repeat of") > -1){
+						count--;
+						count--;
+						toCount = 1;
+					}
+					if(count == 2){
+						//remember to put in -13 at the end: ,13
+						subject = inputLine.substring(inputLine.indexOf('class="c11">') + 12);
+						subject = subject.substring(0, subject.indexOf('<'));
+						//echo $subject;
+						console.log(subject);
+						
+						if(inputLine.indexOf("Term GPA") > -1){
+							stopCondition = 1;
+						}
+					}
+					if(count == 4){
+						number = inputLine.substring(inputLine.indexOf('class="c11">') + 12);
+						number = number.substring(0, number.indexOf('<'));
+						//echo $number;
+						console.log(number);
+					}
+					if(count == 6){
+						name = inputLine.substring(inputLine.indexOf('class="c11">') + 12);
+						name = name.substring(0, name.indexOf('<'));
+						//echo $name;
+						console.log(name);
+					}
+					if(count == 12){
+						grade = inputLine.substring(inputLine.indexOf('class="c11">') + 12);
+						grade = grade.substring(0, grade.indexOf('<'));
+						//echo $grade;
+						console.log(grade);
+						console.log(" ");
+						
+						if(stopCondition == 0){
+							//txt = sprintf("%s %s %s %s", $subject, $number, $name, $grade);
+							//echo $txt;
+						}
+						if(grade.indexOf('"top"') > -1){
+							startRead = 0;
+						}
+					}
+					if(count == 14){
+						count = -1;
+					}
+					if(toCount == 0){
+						count++;
+					}
+				}
+				if(inputLine.indexOf("Beginning of") > -1){
+					beginUndergrad = 1;
+				}
+				if(inputLine.indexOf("Points") > 0 && beginUndergrad == 1){
+					startSemester = 1;
+				}
+			}
+		};
+	};
+  </script>
+
+  <p>...After the script.</p>
+
+</body>
+
+</html>
