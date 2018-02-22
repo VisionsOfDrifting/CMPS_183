@@ -1,3 +1,6 @@
+var userID;
+
+
 /*********** INITIALIZE FIREBASE ***********/
 var config = {
     apiKey: "AIzaSyA8rONNbHblA79IzG-gPhcuKmGuTfsdYA8",
@@ -14,7 +17,9 @@ function login() {
     function newLoginHappened(user) {
         if (user) {
             // user is signed in
-            app(user);
+            userID = app(user);
+            alert(userID);
+            testDatabase();
         } else {
             window.location = 'index.html';
         }
@@ -32,8 +37,8 @@ function app(user) {
     document.getElementById("clientName").innerHTML = user.displayName;
     document.getElementById("clientPhoto").setAttribute("src", user.photoURL);
     document.getElementById("clientName").style.visibility = "visible";
-    document.getElementById("clientPhoto").style.visibility = "visible";
-
+    document.getElementById("clientPhoto").style.visibility = "hidden";
+    return user.uid;
 }
 
 window.onload = login;
@@ -87,3 +92,26 @@ function toggleMenu() {
 
 addItems();
 
+
+/*********** STORE DATABASE ITEMS ***********/
+function testDatabase() {
+    const ref = firebase.database().ref();
+    alert(userID);
+    var usersRef = ref.child(userID);
+    usersRef.set({
+        gpa: {
+            2017: {
+                fall: 4.0,
+                winter: 3.8,
+                spring: 1.2,
+                summer: 3.5
+            },
+            2018: {
+                fall: 3.6,
+                winter: 2.1,
+                spring: 1.1,
+                summer: 4.0
+            }
+        }
+    });
+}
