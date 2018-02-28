@@ -32,20 +32,39 @@
     
     <!-- Header -->
     <header class="w3-container w3-yellow w3-center" style="padding:60px 16px">
-        <h3>Upload a new transcript</h3>
-        <form><input type="file" id="fileButton" value="choose file"/><input type="submit" value="submit"/></form>
+        <h1>Upload Files</h1>
+    </header>
         
-          
+        <!-- Upload Transcript -->
+        <div class="w3-row-padding w3-padding-64 w3-container w3-center">
+           <h3>Upload a new transcript</h3>
+           <form id="transcript"><input id="submissionButton" type="file" value="choose file"/><input id="fileButton" type="submit" value="submit"/></form>
+           <br><br>
+        </div>
+
+        <!-- Upload Notes -->
+        <div class="w3-row-padding w3-light-grey w3-padding-64 w3-container w3-center">
+           <h3>Upload a file</h3>
+           <form><input type="file" id="notesButton" value="choose file"/><input id="nb" type="submit" value="submit"/></form>
+           <br><br>
+        </div>
+
         <script>
-            var fileButton = document.getElementById("fileButton");
-            fileButton.addEventListener('change', function(e){
-                e.preventDefault();
-                var file = e.target.files[0];
-                var storageRef = firebase.storage().ref(file.name);
-                storageRef.put(file);
-            });  
+           var submitFile = function (event) {
+              event.preventDefault();
+              var file = event.target.files[0];
+              var storageRef = firebase.storage().ref(file.name);
+              storageRef.put(file);
+           }  
+          
+           // Add our event listeners
+           var fileButton = document.getElementById("submissionButton");
+           fileButton.addEventListener('change', submitFile, false);
+           var notesButton = document.getElementById("notesButton");
+           notesButton.addEventListener('change', submitFile, false);
         </script>
-      </header>
+        
+        <pre id="object"></pre>
       
     <!-- Footer Location -->
     <div id="footer-container"></div>
@@ -54,6 +73,5 @@
     
     <script src="scripts/signed-in-header.js"></script>
     <script src="scripts/footer.js"></script>
-    <script src="scripts/testdb.js"></script>
     
 </html>

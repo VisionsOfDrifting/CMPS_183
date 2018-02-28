@@ -18,7 +18,6 @@ function login() {
         if (user) {
             // user is signed in
             userID = app(user);
-            alert(userID);
             testDatabase();
         } else {
             window.location = 'index.html';
@@ -37,7 +36,7 @@ function app(user) {
     document.getElementById("clientName").innerHTML = user.displayName;
     document.getElementById("clientPhoto").setAttribute("src", user.photoURL);
     document.getElementById("clientName").style.visibility = "visible";
-    document.getElementById("clientPhoto").style.visibility = "hidden";
+    document.getElementById("clientPhoto").style.visibility = "visible";
     return user.uid;
 }
 
@@ -96,7 +95,7 @@ addItems();
 /*********** STORE DATABASE ITEMS ***********/
 function testDatabase() {
     const ref = firebase.database().ref();
-    alert(userID);
+    
     var usersRef = ref.child(userID);
     usersRef.set({
         gpa: {
@@ -115,3 +114,9 @@ function testDatabase() {
         }
     });
 }
+
+
+
+const preObject = document.getElementById('object');
+const dbRefObject = firebase.database().ref().child(userID/'gpa'/2017/'spring');
+dbRefObject.on('value', snap => console.log(snap.val()));
