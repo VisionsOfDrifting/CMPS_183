@@ -111,6 +111,7 @@ document.getElementById('submissionButton').onchange = function(){
         var count = 0;
         var toCount = 0;
         var fRun = true;
+        var quarter = "";
 
         var stopCondition = 0;
 
@@ -147,6 +148,15 @@ document.getElementById('submissionButton').onchange = function(){
                 startRead = 1;
                 stopCondition = 0;
                 fRun = false;
+                if (semester.includes("Fall")) {
+                    quarter = "Fall";
+                } else if (semester.includes("Winter")) {
+                    quarter = "Winter";
+                } else if (semester.includes("Spring")) {
+                    quarter = "Spring";
+                } else if (semester.includes("Summer")) {
+                    quarter = "Summer";
+                }
             }
             if(inputLine.indexOf('Academic Standing Effective') > -1){
                 startSemester = 0;
@@ -209,6 +219,8 @@ document.getElementById('submissionButton').onchange = function(){
                     } else if (grade.includes ("D")){
                         creditCount += 5;
                     }
+                    
+                    insertCourse(subject, number, name, grade, year, quarter);
 
                     if(grade.indexOf('"top"') > -1){
                         startRead = 0;
@@ -302,8 +314,17 @@ function insertSummer(year, gpa){
     });
 }
 
+function insertCourse(dept, cnum, cname, grade, year, quarter){
+    const ref = firebase.database().ref();
+    var usersRef = ref.child("" + userID + "/courses/" + + year + "/" + quarter + "/" + dept + "/" + cnum);
+    usersRef.update({
+        name: cname,
+        grade: grade
+    });
+}
 
 
-const preObject = document.getElementById('object');
-const dbRefObject = firebase.database().ref().child(userID/'gpa'/2017/'spring');
-dbRefObject.on('value', snap => console.log(snap.val()));
+
+//const preObject = document.getElementById('object');
+//const dbRefObject = firebase.database().ref().child(userID/'gpa'/2017/'spring');
+//dbRefObject.on('value', snap => console.log(snap.val()));
