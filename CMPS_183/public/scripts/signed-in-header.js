@@ -206,7 +206,10 @@ document.getElementById('submissionButton').onchange = function(){
                     grade = grade.substring(0, grade.indexOf('<'));
                     console.log(grade);
                     console.log(" ");
-                    if (!grade.includes("W")){
+                    if (grade.includes("c58")) {
+                        grade = "IP";
+                    }
+                    if (!grade.includes("W") && !grade.includes("IP")){
                         courseCount += 1;
                     }
                     // Calculate a VERY rough GPA estimate for the quarter
@@ -220,7 +223,10 @@ document.getElementById('submissionButton').onchange = function(){
                         creditCount += 5;
                     }
                     
-                    insertCourse(subject, number, name, grade, year, quarter);
+                    if (number != "") {
+                        insertCourse(subject, number, name, grade, year, quarter);
+                    }
+                    
 
                     if(grade.indexOf('"top"') > -1){
                         startRead = 0;
