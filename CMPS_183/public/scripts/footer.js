@@ -3,7 +3,7 @@ const footer = document.querySelector('#footer-container');
 const setFooter = () => {
     var quote = document.createElement('div');
     quote.setAttribute("class", "w3-container w3-black w3-center w3-opacity w3-padding-64");
-    quote.innerHTML = '<h1 class="w3-margin w3-xlarge">Quote of the day: Expect problems and eat them for breakfast.</h1>';
+    quote.innerHTML = '<h1 class="w3-margin w3-xlarge">Quote of the day: The elevator for success is out of order. You\'ll have to use the stairs ... one step at a time.</h1>';
     
     footer.appendChild(quote);
     
