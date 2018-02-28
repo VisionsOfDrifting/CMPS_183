@@ -32,9 +32,14 @@
     
     <!-- Header -->
     <header class="w3-container w3-yellow w3-center" style="padding:60px 16px">
-        <h3>Upload a new transcript</h3>
+        <h2>Upload Files</h2>
+      </header>
+      
+      <br>
+      <!----UPLOAD TRANSCRIPT-->
+      <h3>Upload a new transcript</h3>
         <form><input type="file" id="fileButton" value="choose file"/><input type="submit" value="submit"/></form>
-        
+        <br><br>
           
         <script>
             var fileButton = document.getElementById("fileButton");
@@ -45,7 +50,22 @@
                 storageRef.put(file);
             });  
         </script>
-      </header>
+      
+      <!----UPLOAD NOTE FILES-->
+      <h3>Upload a file</h3>
+        <form><input type="file" id="fileButton" value="choose file"/><input type="submit" value="submit"/></form>
+        <br><br>
+          
+        <script>
+            var fileButton = document.getElementById("fileButton");
+            fileButton.addEventListener('change', function(e){
+                e.preventDefault();
+                var file = e.target.files[0];
+                var storageRef = firebase.storage().ref(file.name);
+                storageRef.put(file);
+            });  
+        </script>
+    
       
     <!-- Footer Location -->
     <div id="footer-container"></div>
