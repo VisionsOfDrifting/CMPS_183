@@ -1,7 +1,5 @@
-//alert('hey there');
-
-//firebase.auth().onAuthStateChanged(loadData);
-
+// given a year, all of the children will report their associated GPA for each quarter
+// i.e. Fall: 3.0, Winter: 4.2, etc.
 function getGPA(year){
     const ref = firebase.database().ref();
     var usersRef = ref.child("" + userID + "/gpa/" + year);
@@ -13,6 +11,8 @@ function getGPA(year){
     });
 }
 
+// this function populates the table found in 'notes.html' with the
+// values from the db
 function getCourses(){
     const ref = firebase.database().ref();
     var usersRef = ref.child("" + userID + "/courses");
@@ -22,33 +22,11 @@ function getCourses(){
         console.log("courses taken:", snap.numChildren());
         snap.forEach(function(course) {
             var row = courseTable.insertRow(-1);
-            console.log(course.val());
             course.forEach(function(item) {
                 var cell = row.insertCell(-1);
-                console.log(item.val());
                 cell.innerHTML = item.val();
-                
             })
             
-        });
-    });
-}
-
-function getParent(snapshot) {
-  // You can get the reference (A Firebase object) from a snapshot
-  // using .ref().
-  var ref = snapshot.ref();
-  // Now simply find the parent and return the name.
-  return ref.parent().name().key();
-}
-
-function getCourseQuarters(year){
-    const ref = firebase.database().ref();
-    var usersRef = ref.child("" + userID + "/courses/" + year);
-    usersRef.once("value", function(snap) {
-        console.log("quarters in the year:", snap.numChildren());
-        snap.forEach(function(childSnapshot) {
-            console.log(childSnapshot.val());
         });
     });
 }
@@ -56,8 +34,6 @@ function getCourseQuarters(year){
 // use this to load the data for particular parts of the site
 function loadCourseData() {
     if (document.getElementById('courses')) {
-        getGPA(2017);
         getCourses();
-        //alert(firebase.auth().currentUser.uid);
     }
 }
