@@ -18,7 +18,9 @@ function login() {
         if (user) {
             // user is signed in
             userID = app(user);
-            //testDatabase();
+            if (document.getElementById('courses')) {
+                loadCourseData(); 
+            }
         } else {
             window.location = 'index.html';
         }
@@ -92,197 +94,171 @@ function toggleMenu() {
 addItems();
 
 /*********** Parse Function *****************/
-document.getElementById('submissionButton').onchange = function(){
-    var file = this.files[0];
+if (document.getElementById('submissionButton')) {
+    document.getElementById('submissionButton').onchange = function(){
+        var file = this.files[0];
 
-    var reader = new FileReader();
-    reader.readAsText(file);
-    reader.onload = function(e){
-        var marker = 0;
-        var startRead = 0;
-        var startSemester = 0;
+        var reader = new FileReader();
+        reader.readAsText(file);
+        reader.onload = function(e){
+            var marker = 0;
+            var startRead = 0;
+            var startSemester = 0;
 
-        var semester = "";
-        var subject = "";
-        var number = "";
-        var name = "";
-        var grade = "";
+            var semester = "";
+            var subject = "";
+            var number = "";
+            var name = "";
+            var grade = "";
 
-        var count = 0;
-        var toCount = 0;
-        var fRun = true;
-        var quarter = "";
-
-        var stopCondition = 0;
-
-        var beginUndergrad = 0;
-
-        var lines = this.result.split('\n');
-        for(var line = 0; line < lines.length; line++){
+            var count = 0;
             var toCount = 0;
-            var inputLine = lines[line].toString();
+            var fRun = true;
+            var quarter = "";
 
-            if (inputLine.indexOf("Quarter") > 0) {
-                // make sure we have data (this isn't the first run)
-                if (!fRun) {
-                    // Calculate a VERY rough GPA estimate for the quarter
-                    var qGPA = creditCount / (courseCount * 5);
+            var stopCondition = 0;
+
+            var beginUndergrad = 0;
+
+            var lines = this.result.split('\n');
+            for(var line = 0; line < lines.length; line++){
+                var toCount = 0;
+                var inputLine = lines[line].toString();
+
+                if (inputLine.indexOf("Quarter") > 0) {
+                    // make sure we have data (this isn't the first run)
+                    if (!fRun) {
+                        // Calculate a VERY rough GPA estimate for the quarter
+                        var qGPA = creditCount / (courseCount * 5);
+                        if (semester.includes("Fall")) {
+                            insertFall(year, qGPA);
+                        } else if (semester.includes("Winter")) {
+                            insertWinter(year, qGPA);
+                        } else if (semester.includes("Spring")) {
+                            insertSpring(year, qGPA);
+                        } else if (semester.includes("Summer")) {
+                            insertSummer(year, qGPA);
+                        }
+                    }
+
+                    count = 0;
+                    semester = inputLine.substring(65);
+                    semester = semester.substring(0, semester.indexOf('<'));
+                    console.log(semester);
+                    var year = semester.substr(0,4);
+                    var courseCount = 0;
+                    var creditCount = 0;
+                    startRead = 1;
+                    stopCondition = 0;
+                    fRun = false;
                     if (semester.includes("Fall")) {
-                        insertFall(year, qGPA);
+                        quarter = "Fall";
                     } else if (semester.includes("Winter")) {
-                        insertWinter(year, qGPA);
+                        quarter = "Winter";
                     } else if (semester.includes("Spring")) {
-                        insertSpring(year, qGPA);
+                        quarter = "Spring";
                     } else if (semester.includes("Summer")) {
-                        insertSummer(year, qGPA);
+                        quarter = "Summer";
                     }
                 }
-                
-                count = 0;
-                semester = inputLine.substring(65);
-                semester = semester.substring(0, semester.indexOf('<'));
-                console.log(semester);
-                var year = semester.substr(0,4);
-                var courseCount = 0;
-                var creditCount = 0;
-                startRead = 1;
-                stopCondition = 0;
-                fRun = false;
-                if (semester.includes("Fall")) {
-                    quarter = "Fall";
-                } else if (semester.includes("Winter")) {
-                    quarter = "Winter";
-                } else if (semester.includes("Spring")) {
-                    quarter = "Spring";
-                } else if (semester.includes("Summer")) {
-                    quarter = "Summer";
+                if(inputLine.indexOf('Academic Standing Effective') > -1){
+                    startSemester = 0;
                 }
-            }
-            if(inputLine.indexOf('Academic Standing Effective') > -1){
-                startSemester = 0;
-            }
-            if(inputLine.indexOf('<tr class="c28">') == 0 || inputLine.indexOf('<tr class="c26">') == 0){
-                marker = 1;
-            }
-            if(inputLine.indexOf('</tr>') == 0 && startSemester == 1) {
-                marker = 0;
-            }
-            if(inputLine.indexOf('Term Honor:') > 1){
-                startSemester = 0;
-            }
-            if(inputLine.indexOf('Term GPA') > 1){
-                startSemester = 0;
-            }
-            if(marker == 1 && startRead == 1 && startSemester == 1 && stopCondition == 0){
-                if(inputLine.indexOf("Repeated:") > -1){
-                    count--;
-                    toCount = 1;
-                } else if(inputLine.indexOf("Repeated") > -1 || inputLine.indexOf("Repeat of") > -1){
-                    count--;
-                    count--;
-                    toCount = 1;
+                if(inputLine.indexOf('<tr class="c28">') == 0 || inputLine.indexOf('<tr class="c26">') == 0){
+                    marker = 1;
                 }
-                if(count == 2){
-                    subject = inputLine.substring(inputLine.indexOf('class="c11">') + 12);
-                    subject = subject.substring(0, subject.indexOf('<'));
-                    console.log(subject);
+                if(inputLine.indexOf('</tr>') == 0 && startSemester == 1) {
+                    marker = 0;
+                }
+                if(inputLine.indexOf('Term Honor:') > 1){
+                    startSemester = 0;
+                }
+                if(inputLine.indexOf('Term GPA') > 1){
+                    startSemester = 0;
+                }
+                if(marker == 1 && startRead == 1 && startSemester == 1 && stopCondition == 0){
+                    if(inputLine.indexOf("Repeated:") > -1){
+                        count--;
+                        toCount = 1;
+                    } else if(inputLine.indexOf("Repeated") > -1 || inputLine.indexOf("Repeat of") > -1){
+                        count--;
+                        count--;
+                        toCount = 1;
+                    }
+                    if(count == 2){
+                        subject = inputLine.substring(inputLine.indexOf('class="c11">') + 12);
+                        subject = subject.substring(0, subject.indexOf('<'));
+                        console.log(subject);
 
-                    if(inputLine.indexOf("Term GPA") > -1){
-                        stopCondition = 1;
+                        if(inputLine.indexOf("Term GPA") > -1){
+                            stopCondition = 1;
+                        }
                     }
-                }
-                if(count == 4){
-                    number = inputLine.substring(inputLine.indexOf('class="c11">') + 12);
-                    number = number.substring(0, number.indexOf('<'));
-                    console.log(number);
-                }
-                if(count == 6){
-                    name = inputLine.substring(inputLine.indexOf('class="c11">') + 12);
-                    name = name.substring(0, name.indexOf('<'));
-                    console.log(name);
-                }
-                if(count == 12){
-                    grade = inputLine.substring(inputLine.indexOf('class="c11">') + 12);
-                    grade = grade.substring(0, grade.indexOf('<'));
-                    console.log(grade);
-                    console.log(" ");
-                    if (grade.includes("c58")) {
-                        grade = "IP";
+                    if(count == 4){
+                        number = inputLine.substring(inputLine.indexOf('class="c11">') + 12);
+                        number = number.substring(0, number.indexOf('<'));
+                        console.log(number);
                     }
-                    if (!grade.includes("W") && !grade.includes("IP")){
-                        courseCount += 1;
+                    if(count == 6){
+                        name = inputLine.substring(inputLine.indexOf('class="c11">') + 12);
+                        name = name.substring(0, name.indexOf('<'));
+                        console.log(name);
                     }
-                    // Calculate a VERY rough GPA estimate for the quarter
-                    if (grade.includes("A")){
-                        creditCount += 5 * 4;
-                    } else if (grade.includes("B")){
-                        creditCount += 5 * 3;
-                    } else if (grade.includes("C")){
-                        creditCount += 5 * 2;
-                    } else if (grade.includes ("D")){
-                        creditCount += 5;
-                    }
-                    
-                    if (number != "") {
-                        insertCourse(subject, number, name, grade, year, quarter);
-                    }
-                    
+                    if(count == 12){
+                        grade = inputLine.substring(inputLine.indexOf('class="c11">') + 12);
+                        grade = grade.substring(0, grade.indexOf('<'));
 
-                    if(grade.indexOf('"top"') > -1){
-                        startRead = 0;
+                        if (grade.includes("c5")) {
+                            grade = "IP";
+                            startRead = 0; // stops the read but still need to get last entry(s)
+                        }
+
+                        console.log(grade);
+                        console.log(" ");
+
+                        if (!grade.includes("W") && !grade.includes("IP")){
+                            courseCount += 1;
+                        }
+                        // Calculate a VERY rough GPA estimate for the quarter
+                        if (grade.includes("A")){
+                            creditCount += 5 * 4;
+                        } else if (grade.includes("B")){
+                            creditCount += 5 * 3;
+                        } else if (grade.includes("C")){
+                            creditCount += 5 * 2;
+                        } else if (grade.includes ("D")){
+                            creditCount += 5;
+                        }
+
+                        if (number != "") {
+                            insertCourse(subject, number, name, grade, year, quarter);
+                        }
+
+
+                        if(grade.indexOf('"top"') > -1){
+                            startRead = 0;
+                        }
+                    }
+                    if(count == 14){
+                        count = -1;
+                    }
+                    if(toCount == 0){
+                        count++;
                     }
                 }
-                if(count == 14){
-                    count = -1;
+                if(inputLine.indexOf("Beginning of") > -1){
+                    beginUndergrad = 1;
                 }
-                if(toCount == 0){
-                    count++;
+                if(inputLine.indexOf("Points") > 0 && beginUndergrad == 1){
+                    startSemester = 1;
                 }
+
             }
-            if(inputLine.indexOf("Beginning of") > -1){
-                beginUndergrad = 1;
-            }
-            if(inputLine.indexOf("Points") > 0 && beginUndergrad == 1){
-                startSemester = 1;
-            }
-            
-        }
+        };
     };
-};
+}
 
 
-///*********** STORE DATABASE ITEMS ***********/
-//function testDatabase() {
-//    const ref = firebase.database().ref();
-//    var misc = 5.0;
-//    var year = 2019;
-//    alert(userID);
-//    
-//    var usersRef = ref.child(userID);
-//    usersRef.set({
-//        gpa: {
-//            2017: {
-//                fall: misc,
-//                winter: misc,
-//                spring: 1.2,
-//                summer: 3.5
-//            },
-//            2018: {
-//                fall: 3.6,
-//                winter: 2.1,
-//                spring: 1.1,
-//                summer: 4.0
-//            },
-//            year: {
-//                fall: 0.1
-//            }
-//        }
-//    });
-//    var mRef = ref.child("" + userID + "/gpa/" + year);
-//    mRef.set({
-//        fall: misc
-//    });
-//}
 
 /**** Use this for inserting a fall quarter GPA into the db ****/
 function insertFall(year, gpa){
@@ -320,15 +296,27 @@ function insertSummer(year, gpa){
     });
 }
 
+//function insertCourse(dept, cnum, cname, grade, year, quarter){
+//    const ref = firebase.database().ref();
+//    var usersRef = ref.child("" + userID + "/courses/" + + year + "/" + quarter + "/" + dept + "/" + cnum);
+//    usersRef.update({
+//        name: cname,
+//        grade: grade
+//    });
+//}
+
 function insertCourse(dept, cnum, cname, grade, year, quarter){
     const ref = firebase.database().ref();
-    var usersRef = ref.child("" + userID + "/courses/" + + year + "/" + quarter + "/" + dept + "/" + cnum);
+    var usersRef = ref.child("" + userID + "/courses/" + dept + cnum);
     usersRef.update({
+        year: year,
+        quarter: quarter,
+        dept: dept,
+        cnum: cnum,
         name: cname,
         grade: grade
     });
 }
-
 
 
 //const preObject = document.getElementById('object');
