@@ -1,44 +1,61 @@
-var i;
-var max = 4.0;
-var gpa = [12]; //12 quarters of grades
-gpa[0] = 3.2;
-gpa[1] = 3.7;
-gpa[2] = 2.7;
-gpa[3] = 3.2;
-gpa[4] = 3.8;
-gpa[5] = 3.9;
-gpa[6] = 3.2;
-gpa[7] = 2.0;
-gpa[8] = 1.0;
-gpa[9] = 1.5;
-gpa[10] = 2.4;
-gpa[11] = 2.4;
+// given a year, all of the children will report their associated GPA for each quarter
+// i.e. Fall: 3.0, Winter: 4.2, etc.
+function loadGraphData(){
+    const ref = firebase.database().ref();
+    var quarterGPAs = [];
+    var quarterIndex = [];
+    var i = 0;
+    var numQuarters = 0;
+    var fall, spring, winter, summer;
+    var max = 4.0;
+    quarterGPAs.push(i++);
+    quarterIndex.push(0);
+    var text = [];
+    var quarters = ["Winter", "Spring", "Summer", "Fall"];
+    var usersRef = ref.child("" + userID + "/gpa");
+    var dict = {};
+    
+    usersRef.once("value", function(year) {
+        console.log("initial data loaded!", year.numChildren());
+        year.forEach(function(quarter) {
+            console.log(quarter.val());
+            quarter.forEach(function(gpa) {
+                console.log(gpa.key + " " + quarter.key);
+                quarterGPAs.push(gpa.val());
+                text.push(quarter.key + " " + gpa.key);
+                quarterIndex.push(i++);
+            });
+            // now we have all "4" quarters loaded if they took all 4 quarters in that year
+        });
+        makeGraph(quarterIndex, quarterGPAs, text);
+    });
+}
 
-//This is ploty.js, you have to give it arrays.
-var trace1 = {
-  x: [1,2,3,4,5,6,7,8,9,10,11,12], 
-  y: gpa, 
-  mode: 'lines+markers', 
-  name: 'spline',  
-  text: ['Q1 Fall', 'Q2 Winter', 'Q3 Spring', 'Q4 Summer', 
-         'Q5 Fall', 'Q6 Winter', 'Q7 Spring', 'Q8 Summer', 
-         'Q9 Fall', 'Q10 Winter', 'Q11 Spring', 'Q12 Summer'],
-  line: {shape: 'spline'}, 
-  type: 'scatter'
-};
-var data = [trace1];
-var layout = {
-     xaxis: {
-     title: 'Quarters'
-   },
-   yaxis: {
-     title: 'GPA'
-   },
-   legend: {
-     y: 0.5, 
-     traceorder: 'reversed', 
-     font: {size: 16}, 
-     yref: 'paper'
-   }
-};
-Plotly.newPlot('graph', data, layout);
+function makeGraph(x, quarterGPAs, markerInfo) {
+    //console.log(x);
+    var trace1 = {
+      x: x, 
+      y: quarterGPAs, 
+      mode: 'lines+markers', 
+      name: 'spline',  
+      text: markerInfo,
+      line: {shape: 'spline'}, 
+      type: 'scatter'
+    };
+    var data = [trace1];
+    var layout = {
+         xaxis: {
+         title: 'Quarters'
+       },
+       yaxis: {
+         title: 'GPA'
+       },
+       legend: {
+         y: 0.5, 
+         traceorder: 'reversed', 
+         font: {size: 16}, 
+         yref: 'paper'
+       }
+    };
+    Plotly.newPlot('graph', data, layout);
+}

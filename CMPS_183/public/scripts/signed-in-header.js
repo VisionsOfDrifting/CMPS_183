@@ -20,6 +20,8 @@ function login() {
             userID = app(user);
             if (document.getElementById('courses')) {
                 loadCourseData(); 
+            } else if (document.getElementById('graph')) {
+                loadGraphData();
             }
         } else {
             window.location = 'index.html';
@@ -295,15 +297,6 @@ function insertSummer(year, gpa){
         summer: gpa
     });
 }
-
-//function insertCourse(dept, cnum, cname, grade, year, quarter){
-//    const ref = firebase.database().ref();
-//    var usersRef = ref.child("" + userID + "/courses/" + + year + "/" + quarter + "/" + dept + "/" + cnum);
-//    usersRef.update({
-//        name: cname,
-//        grade: grade
-//    });
-//}
 
 function insertCourse(dept, cnum, cname, grade, year, quarter){
     const ref = firebase.database().ref();
