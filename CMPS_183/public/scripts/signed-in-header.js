@@ -57,8 +57,8 @@ const addItems = () => {
     largeNav.innerHTML = '<div class="w3-left-align w3-card">';
     largeNav.innerHTML += '<a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-red" href="javascript:void(0);" onclick="toggleMenu()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>';
     largeNav.innerHTML += '<a href="homepage.html" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Home</a>';
-    largeNav.innerHTML += '<a href="courses.html" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Courses & Grades</a>';
-    largeNav.innerHTML += '<a href="notes.html" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Notes</a>';
+    largeNav.innerHTML += '<a href="courses.html" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Notes & Grades</a>';
+    largeNav.innerHTML += '<a href="notes.html" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Courses</a>';
     largeNav.innerHTML += '<button onclick="logout();" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Logout</button>';
     largeNav.innerHTML += '</div>';
     
