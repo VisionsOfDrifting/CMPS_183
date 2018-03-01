@@ -3,19 +3,16 @@
 function loadGraphData(){
     const ref = firebase.database().ref();
     var usersRef = ref.child("" + userID + "/gpa");
+    // gpa val to display at top
+    var gpaVal = document.getElementById("gpainfo");
     
     var quarterIndex = [];
-    var i = 0;
+    var i = 1;
     var text = [];
     var qDict = {};
     var qfinal = [];
     
-    // insert a 0,0 node to help scale the graph
-    qfinal.push(i++);
-    quarterIndex.push(0);
-    text.push("Q0");
-    
-    
+    // loop through all entries in the gpa db table for the given user and store vals for graph entries
     usersRef.once("value", function(year) {
         year.forEach(function(quarter) {
             quarter.forEach(function(gpa) {
@@ -47,10 +44,16 @@ function loadGraphData(){
             }
 
             });
+        // make graph with calculated information
         makeGraph(quarterIndex, qfinal, text);
+        
+        // put 'current quarter' gpa at top
+        // need to calculate to make real current gpa or edit parser to get this info & store in db
+        gpaVal.innerHTML = "GPA: " + qfinal[qfinal.length - 1]; 
     });
 }
 
+// actual call to plotly with our data
 function makeGraph(x, quarterGPAs, markerInfo) {
     var trace1 = {
       x: x, 
@@ -64,10 +67,11 @@ function makeGraph(x, quarterGPAs, markerInfo) {
     var data = [trace1];
     var layout = {
          xaxis: {
-         title: 'Quarters'
+            title: 'Quarters'
        },
        yaxis: {
-         title: 'GPA'
+         title: 'GPA',
+           range: [0, 5]
        },
        legend: {
          y: 0.5, 
@@ -77,4 +81,5 @@ function makeGraph(x, quarterGPAs, markerInfo) {
        }
     };
     Plotly.newPlot('graph', data, layout);
+    
 }
