@@ -115,7 +115,9 @@ if (document.getElementById('submissionButton')) {
 
             var count = 0;
             var toCount = 0;
-            var fRun = true;
+			var gpaCount = 0;
+			var qGPA = 0;
+			var gpaBool = 0
             var quarter = "";
 
             var stopCondition = 0;
@@ -126,23 +128,31 @@ if (document.getElementById('submissionButton')) {
             for(var line = 0; line < lines.length; line++){
                 var toCount = 0;
                 var inputLine = lines[line].toString();
-
-                if (inputLine.indexOf("Quarter") > 0) {
-                    // make sure we have data (this isn't the first run)
-                    if (!fRun) {
-                        // Calculate a VERY rough GPA estimate for the quarter
-                        var qGPA = creditCount / (courseCount * 5);
-                        if (semester.includes("Fall")) {
-                            insertFall(year, qGPA);
-                        } else if (semester.includes("Winter")) {
-                            insertWinter(year, qGPA);
-                        } else if (semester.includes("Spring")) {
-                            insertSpring(year, qGPA);
-                        } else if (semester.includes("Summer")) {
-                            insertSummer(year, qGPA);
-                        }
+				
+				if(inputLine.indexOf("Term GPA") > 0){
+					gpaCount = 3;
+					if(gpaBool == 0){
+						gpaBool = 1;
+					} else {
+						gpaBool = 0;
+					}
+				}
+				
+				if(gpaCount == 1 && startRead == 1 && gpaBool == 1){
+					qGPA = inputLine.substring(inputLine.indexOf('</span>') - 4, inputLine.indexOf('</span>'));
+                    console.log("Semester: " + qGPA);
+					if (semester.includes("Fall")) {
+                        insertFall(year, qGPA);
+                    } else if (semester.includes("Winter")) {
+                        insertWinter(year, qGPA);
+                    } else if (semester.includes("Spring")) {
+                        insertSpring(year, qGPA);
+                    } else if (semester.includes("Summer")) {
+                        insertSummer(year, qGPA);
                     }
-
+				}
+				
+                if (inputLine.indexOf("Quarter") > 0) {
                     count = 0;
                     semester = inputLine.substring(65);
                     semester = semester.substring(0, semester.indexOf('<'));
@@ -221,25 +231,12 @@ if (document.getElementById('submissionButton')) {
                         if (!grade.includes("W") && !grade.includes("IP")){
                             courseCount += 1;
                         }
-                        // Calculate a VERY rough GPA estimate for the quarter
-                        if (grade.includes("A")){
-                            creditCount += 5 * 4;
-                        } else if (grade.includes("B")){
-                            creditCount += 5 * 3;
-                        } else if (grade.includes("C")){
-                            creditCount += 5 * 2;
-                        } else if (grade.includes ("D")){
-                            creditCount += 5;
-                        }
-
-                        if (number != "") {
-                            insertCourse(subject, number, name, grade, year, quarter);
-                        }
-
 
                         if(grade.indexOf('"top"') > -1){
                             startRead = 0;
-                        }
+                        } else if(number != ""){
+							insertCourse(subject, number, name, grade, year, quarter);
+						}
                     }
                     if(count == 14){
                         count = -1;
@@ -254,7 +251,7 @@ if (document.getElementById('submissionButton')) {
                 if(inputLine.indexOf("Points") > 0 && beginUndergrad == 1){
                     startSemester = 1;
                 }
-
+				gpaCount--;
             }
         };
     };
