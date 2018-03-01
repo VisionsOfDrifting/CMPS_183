@@ -5,6 +5,7 @@ function loadGraphData(){
     var usersRef = ref.child("" + userID + "/gpa");
     // gpa val to display at top
     var gpaVal = document.getElementById("gpainfo");
+    var standing = document.getElementById("academicstanding");
     
     
     var quarterIndex = [];
@@ -55,6 +56,7 @@ function loadGraphData(){
         //gpaVal.innerHTML = "GPA: " + qfinal[qfinal.length - 1];        
     });
     insertGPA();
+    insertStanding();
 }
 
 function insertGPA(){
@@ -69,6 +71,24 @@ function insertGPA(){
             console.log(child.key);
         })
         console.log(totgpa.val());
+    })
+}
+
+function insertStanding(){
+    const ref = firebase.database().ref();
+    var usersRef = ref.child("" + userID + "/gpa");
+    usersRef.once("value", function(totgpa) {
+        totgpa.forEach(function(child){
+            if(child.key == "total"){
+                var standing = document.getElementById("academicstanding");
+                var academicstanding = "";
+                if(child.val() < 2.0)
+                    academicstanding = "Academic Probation";
+                else if(child.val() >= 2.0)
+                    academicstanding = "Good Standing";
+                standing.innerHTML = "Academic Standing: " + academicstanding;
+            }
+        })
     })
 }
 
