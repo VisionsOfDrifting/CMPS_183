@@ -6,11 +6,14 @@ function loadGraphData(){
     // gpa val to display at top
     var gpaVal = document.getElementById("gpainfo");
     
+    
     var quarterIndex = [];
     var i = 1;
     var text = [];
     var qDict = {};
     var qfinal = [];
+    
+    var coursecount = 0;
     
     // loop through all entries in the gpa db table for the given user and store vals for graph entries
     usersRef.once("value", function(year) {
@@ -49,8 +52,24 @@ function loadGraphData(){
         
         // put 'current quarter' gpa at top
         // need to calculate to make real current gpa or edit parser to get this info & store in db
-        gpaVal.innerHTML = "GPA: " + qfinal[qfinal.length - 1]; 
+        //gpaVal.innerHTML = "GPA: " + qfinal[qfinal.length - 1];        
     });
+    insertGPA();
+}
+
+function insertGPA(){
+     const ref = firebase.database().ref();
+    var usersRef = ref.child("" + userID + "/gpa");
+    usersRef.once("value", function(totgpa) {
+        totgpa.forEach(function(child){
+            if(child.key == "total"){
+                var gpaVal = document.getElementById("gpainfo");
+                gpaVal.innerHTML = "GPA: " + child.val();
+            }
+            console.log(child.key);
+        })
+        console.log(totgpa.val());
+    })
 }
 
 // actual call to plotly with our data

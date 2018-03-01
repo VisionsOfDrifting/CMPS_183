@@ -116,8 +116,10 @@ if (document.getElementById('submissionButton')) {
             var count = 0;
             var toCount = 0;
 			var gpaCount = 0;
+			var cumGPAcount = 0;
 			var qGPA = 0;
 			var gpaBool = 0
+			var cumGPAbool = 0;
             var quarter = "";
 
             var stopCondition = 0;
@@ -138,9 +140,18 @@ if (document.getElementById('submissionButton')) {
 					}
 				}
 				
+				if(inputLine.indexOf("Cum GPA") > 0){
+					cumGPAcount = 3;
+				}
+				
+				if(cumGPAcount == 1 && cumGPAbool == 0){
+					var totalGPA = inputLine.substring(inputLine.indexOf('</span>') - 4, inputLine.indexOf('</span>'));
+					cumGPAbool = 1;
+                    insertTotalGpa(totalGPA);
+				}
+				
 				if(gpaCount == 1 && startRead == 1 && gpaBool == 1){
 					qGPA = inputLine.substring(inputLine.indexOf('</span>') - 4, inputLine.indexOf('</span>'));
-                    console.log("Semester: " + qGPA);
 					if (semester.includes("Fall")) {
                         insertFall(year, qGPA);
                     } else if (semester.includes("Winter")) {
@@ -252,6 +263,7 @@ if (document.getElementById('submissionButton')) {
                     startSemester = 1;
                 }
 				gpaCount--;
+				cumGPAcount--;
             }
         };
     };
@@ -265,6 +277,16 @@ function insertFall(year, gpa){
     var usersRef = ref.child("" + userID + "/gpa/" + year);
     usersRef.update({
         fall: gpa
+    });
+}
+
+
+/**** Use this for inserting overall GPA into the db ****/
+function insertTotalGpa(totalGpa){
+    const ref = firebase.database().ref();
+    var usersRef = ref.child("" + userID + "/gpa/");
+    usersRef.update({
+        total: totalGpa
     });
 }
 
