@@ -75,8 +75,8 @@ const addItems = () => {
     var smallNav = document.createElement('div');
     smallNav.setAttribute("class", "w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium w3-large");
     smallNav.innerHTML = '<a href="homepage.html" class="w3-bar-item w3-button w3-padding-large">Home</a>';
-    smallNav.innerHTML += '<a href="courses.html" class="w3-bar-item w3-button w3-padding-large">Courses & Grades</a>';
-    smallNav.innerHTML += '<a href="notes.html" class="w3-bar-item w3-button w3-padding-large">Notes</a>';
+    smallNav.innerHTML += '<a href="courses.html" class="w3-bar-item w3-button w3-padding-large">Notes & Grades</a>';
+    smallNav.innerHTML += '<a href="notes.html" class="w3-bar-item w3-button w3-padding-large">Courses</a>';
     smallNav.innerHTML += '<button onclick="logout();" class="w3-bar-item w3-button w3-padding-large">Logout</button></div>';
     smallNav.setAttribute("id", "tinyNav");
     
