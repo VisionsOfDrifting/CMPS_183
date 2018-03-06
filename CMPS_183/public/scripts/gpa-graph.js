@@ -26,22 +26,22 @@ function loadGraphData(){
             for (j = 0; j < quarter.numChildren(); j++){
                 if (a = qDict[quarter.key + "winter"]){
                     qfinal.push(a);
-                    text.push("Winter" + quarter.key);
+                    text.push("Winter " + quarter.key);
                     delete(qDict[quarter.key + "winter"]);
 
                 } else if (a = qDict[quarter.key + "spring"]) {
                     qfinal.push(a);
-                    text.push("Spring" + quarter.key);
+                    text.push("Spring " + quarter.key);
                     delete(qDict[quarter.key + "spring"]);
 
                 } else if (a = qDict[quarter.key + "summer"]) {
                     qfinal.push(a);
-                    text.push("Summer" + quarter.key);
+                    text.push("Summer " + quarter.key);
                     delete(qDict[quarter.key + "summer"]);
 
                 } else if (a = qDict[quarter.key + "fall"]) {
                     qfinal.push(a);
-                    text.push("Fall" + quarter.key);
+                    text.push("Fall " + quarter.key);
                     delete(qDict[quarter.key + "fall"]);
                 }
                 quarterIndex.push(i++);
@@ -49,11 +49,7 @@ function loadGraphData(){
 
             });
         // make graph with calculated information
-        makeGraph(quarterIndex, qfinal, text);
-        
-        // put 'current quarter' gpa at top
-        // need to calculate to make real current gpa or edit parser to get this info & store in db
-        //gpaVal.innerHTML = "GPA: " + qfinal[qfinal.length - 1];        
+        makeGraph(quarterIndex, qfinal, text);     
     });
     insertGPA();
     insertStanding();
