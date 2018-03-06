@@ -15,8 +15,9 @@ firebase.initializeApp(config);
 /*********** VERIFY LOGIN ***********/
 function login() {
     function newLoginHappened(user) {
-        if (user) {
-            // user is signed in
+        var regex = /.+\@ucsc\.edu/
+        if (user && user.email.match(regex)) {
+            // user is signed in with @ucsc.edu address
             userID = app(user);
             if (document.getElementById('courses')) {
                 loadCourseData(); 
@@ -24,10 +25,13 @@ function login() {
                 loadGraphData();
             }
         } else {
+            firebase.auth().signOut()
             window.location = 'index.html';
         }
     }
+    
     firebase.auth().onAuthStateChanged(newLoginHappened);
+    
 }
 
 function logout() {
