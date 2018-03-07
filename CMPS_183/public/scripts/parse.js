@@ -55,14 +55,15 @@ if (document.getElementById('submissionButton')) {
 				
 				if(gpaCount == 1 && startRead == 1 && gpaBool == 1){
 					qGPA = inputLine.substring(inputLine.indexOf('</span>') - 4, inputLine.indexOf('</span>'));
+                    //insertSeason(year, qGPA, semester);
 					if (semester.includes("Fall")) {
-                        insertFall(year, qGPA);
+                        insertSeason(year, qGPA, "fall");
                     } else if (semester.includes("Winter")) {
-                        insertWinter(year, qGPA);
+                        insertSeason(year, qGPA, "winter");
                     } else if (semester.includes("Spring")) {
-                        insertSpring(year, qGPA);
+                        insertSeason(year, qGPA, "spring");
                     } else if (semester.includes("Summer")) {
-                        insertSummer(year, qGPA);
+                        insertSeason(year, qGPA, "summer");
                     }
 				}
 				

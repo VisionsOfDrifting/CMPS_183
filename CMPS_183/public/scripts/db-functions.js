@@ -1,13 +1,3 @@
-/**** Use this for inserting a fall quarter GPA into the db ****/
-function insertFall(year, gpa){
-    const ref = firebase.database().ref();
-    var usersRef = ref.child("" + userID + "/gpa/" + year);
-    usersRef.update({
-        fall: gpa
-    });
-}
-
-
 /**** Use this for inserting overall GPA into the db ****/
 function insertTotalGpa(totalGpa){
     const ref = firebase.database().ref();
@@ -17,30 +7,12 @@ function insertTotalGpa(totalGpa){
     });
 }
 
-/**** Use this for inserting a fall quarter GPA into the db ****/
-function insertSpring(year, gpa){
+/**** Use this for inserting a quarter GPA into the db ****/
+function insertSeason(year, gpa, season){
     const ref = firebase.database().ref();
     var usersRef = ref.child("" + userID + "/gpa/" + year);
     usersRef.update({
-        spring: gpa
-    });
-}
-
-/**** Use this for inserting a fall quarter GPA into the db ****/
-function insertWinter(year, gpa){
-    const ref = firebase.database().ref();
-    var usersRef = ref.child("" + userID + "/gpa/" + year);
-    usersRef.update({
-        winter: gpa
-    });
-}
-
-/**** Use this for inserting a fall quarter GPA into the db ****/
-function insertSummer(year, gpa){
-    const ref = firebase.database().ref();
-    var usersRef = ref.child("" + userID + "/gpa/" + year);
-    usersRef.update({
-        summer: gpa
+        [season]: gpa
     });
 }
 
