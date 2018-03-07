@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="icon" href="https://firebasestorage.googleapis.com/v0/b/sluggrades-56116.appspot.com/o/slugdino.png?alt=media&token=5a6850c2-8e82-49e1-9bac-2b2476c3ba94">
+        <title>Slug Grades</title>
+
+        <!-- update the version number as needed -->
+        <script defer src="/__/firebase/4.9.1/firebase-app.js"></script>
+        <!-- include only the Firebase features as you need -->
+        <script defer src="/__/firebase/4.9.1/firebase-auth.js"></script>
+        <script defer src="/__/firebase/4.9.1/firebase-database.js"></script>
+        <script defer src="/__/firebase/4.9.1/firebase-messaging.js"></script>
+        <script defer src="/__/firebase/4.9.1/firebase-storage.js"></script>
+        <!-- initialize the SDK after all desired features are loaded -->
+        <script defer src="/__/firebase/init.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/4.9.1/firebase.js"></script>
+
+        <style>
+          body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
+          .w3-bar,h1,button {font-family: "Montserrat", sans-serif}
+          td { padding: 15px; text-align: left; }
+            th { padding: 15px; text-align: left; text-decoration: underline;}
+			th:hover{background-color: yellow;}
+        </style>
+    </head>
+    
+  <body>
+    <!-- Navbar Location -->
+    <div class="w3-top" id="navbar"></div>
+
+      <!-- Header -->
+      <header class="w3-container w3-yellow w3-center" style="padding:60px 16px">
+        <h1>Course Summary</h1>
+      </header>
+	  
+	  
+	 
+
+	
+      <div class="w3-container w3-white" style="padding:60px 16px" id="courses">
+          <table style="padding-left:150px;" id="courseTable">
+		  <h1>Course Info:</h1>
+              <th onclick="getCoursesNumber()">Course Number</th>
+              <th onclick="getCoursesSubject()">Subject</th>
+              <th onclick="getCoursesGrade()">Grade</th>
+              <th onclick="getCoursesName()">Course Name</th>
+              <th onclick="getCoursesQuarter()">Quarter</th>
+              <th onclick="getCoursesYear()">Year</th>
+          </table>
+      </div>
+	  
+	  
+	   <div class="w3-container w3-white" style="padding:60px 16px" id="gpa">
+          <table style="padding-left:150px;" id="gpaTable">
+			<h1>Overall GPA:</h1>
+			  <th>Year</th>
+              <th>Winter</th>
+              <th>Spring</th>
+              <th>Summer</th>
+              <th>Fall</th>
+          </table>
+      </div>
+	  
+	  
+	   
+	  
+	 
+
+	  <!-- Footer Location -->
+    <div id="footer-container"></div>
+      
+  </body>
+  
+  
+        <script src="scripts/course-table.js"></script>
+
+    <script src="scripts/signed-in-header.js"></script>
+    <script src="scripts/footer.js"></script>
+</html>
