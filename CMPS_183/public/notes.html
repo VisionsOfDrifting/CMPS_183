@@ -26,6 +26,7 @@
           .w3-bar,h1,button {font-family: "Montserrat", sans-serif}
           td { padding: 15px; text-align: left; }
             th { padding: 15px; text-align: left; text-decoration: underline;}
+			th:hover{background-color: yellow;}
         </style>
     </head>
     
@@ -35,26 +36,50 @@
 
       <!-- Header -->
       <header class="w3-container w3-yellow w3-center" style="padding:60px 16px">
-        <h1>Quarter Summary</h1>
+        <h1>Course Summary</h1>
       </header>
-      
+	  
+	  
+	 
+
+	
       <div class="w3-container w3-white" style="padding:60px 16px" id="courses">
           <table style="padding-left:150px;" id="courseTable">
-              <th>Course Number</th>
-              <th>Subject</th>
-              <th>Grade</th>
-              <th>Course Name</th>
-              <th>Quarter</th>
-              <th>Year</th>
+		  <h1>Course Info:</h1>
+              <th onclick="getCoursesNumber()">Course Number</th>
+              <th onclick="getCoursesSubject()">Subject</th>
+              <th onclick="getCoursesGrade()">Grade</th>
+              <th onclick="getCoursesName()">Course Name</th>
+              <th onclick="getCoursesQuarter()">Quarter</th>
+              <th onclick="getCoursesYear()">Year</th>
           </table>
       </div>
-      
-    <!-- Footer Location -->
+	  
+	  
+	   <div class="w3-container w3-white" style="padding:60px 16px" id="gpa">
+          <table style="padding-left:150px;" id="gpaTable">
+			<h1>Overall GPA:</h1>
+			  <th>Year</th>
+              <th>Winter</th>
+              <th>Spring</th>
+              <th>Summer</th>
+              <th>Fall</th>
+          </table>
+      </div>
+	  
+	  
+	   
+	  
+	 
+
+	  <!-- Footer Location -->
     <div id="footer-container"></div>
       
   </body>
-    
+  
+  
+        <script src="scripts/course-table.js"></script>
+
     <script src="scripts/signed-in-header.js"></script>
     <script src="scripts/footer.js"></script>
-    <script src="scripts/course-table.js"></script>
 </html>
